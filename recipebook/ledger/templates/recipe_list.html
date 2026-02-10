@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1>Recipe Book</h1>
+
+<ul class = "recipes">
+    {% for recipe in recipes %}
+        <h2>{{ recipe.name }}</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient.name }}: {{ ingredient.quantity }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ recipe.link }}">View this recipe only</a>
+    {% endfor %}
+</ul>
+{% endblock %}
