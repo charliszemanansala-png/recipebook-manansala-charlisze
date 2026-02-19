@@ -1,6 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from .models import Recipe_Ingredient, Recipe
+
+def recipe_list(request):
+    recipes = Recipe.objects.all()
+    ctx = {'recipes': recipes }
+    return render(request, 'recipe_list.html', ctx)
+
+def recipe_detail(request, pk):
+    recipe = Recipe_Ingredient.objects.all(pk=pk)
+    ingredient = recipe.ingredients.all()
+    ctx = {'recipes': recipe}
+    ctz = {'ingredients': ingredient}
+    return render(request, 'recipe_detail.html', ctx, ctz)
 
 recipes = [
         {
@@ -65,16 +79,20 @@ recipes = [
         }
     ]     
 
+def recipe_list(request):
+    return render(request, 'recipe_list.html', {'recipes' : recipes } )
+
 def recipe_1(request):
     return render(request, 'recipe_detail.html', {'recipe': recipes[0]})
 
 def recipe_2(request):
     return render(request, 'recipe_detail.html', {'recipe': recipes[1]})
 
-class RecipeListView(TemplateView):
+class RecipeListView(ListView):
+    model = Recipe
     template_name = 'recipe_list.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context ['recipes'] = recipes
-        return context
+
+class RecipeDetailView(DetailView):
+    model = Recipe
+    template_name = 'recipe_detail.html'
+
