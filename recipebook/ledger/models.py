@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from useraccounts.models import Profile
 
 class Ingredient(models.Model):
     name= models.CharField(max_length = 100)
@@ -8,18 +9,26 @@ class Ingredient(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('recipe_detail', args=[str(self.id)])
+        return reverse('ledger:recipe-list')
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
+    author = models.ForeignKey(
+        Profile,
+        on_delete = models.CASCADE,
+        related_name = "recipes",
+        null = True
+    )
+    created_on = models.DateTimeField(auto_now_add= True, null = True)
+    updated_on = models.DateTimeField(auto_now = True)
 
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('recipe_detail', args=[str(self.id)])
+        return reverse('ledger:recipe-detail', args=[str(self.pk)])
     
-class Recipe_Ingredient(models.Model):
+class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length = 100)
 
     ingredient = models.ForeignKey(
@@ -33,6 +42,3 @@ class Recipe_Ingredient(models.Model):
         on_delete = models.CASCADE,
         related_name = 'ingredients',
     )
-
-    def __str__(self):
-        return f"{self.quantity} of {self.ingredient} for {self.recipe}"
