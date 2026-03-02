@@ -1,23 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>Recipe Book</h1>
+<h1>Recipe List</h1>
 
-<ul class = "recipes">
+<ul>
     {% for recipe in recipes %}
-        <h2>{{ recipe.name }}</h2>
         <li>
             <a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a>
         </li>
     {% endfor %}
 </ul>
 {% endblock %}
-        {% comment %} <ul>
-            {% for ingredient in recipe.ingredients.all %}
-                <li>{{ ingredient.ingredient.name }}: {{ ingredient.quantity }}</li>
-            {% endfor %}
-        </ul>
-        <a href= "{% url 'ledger:recipe-detail' recipe.pk %}" > View this recipe only</a>
-    {% endfor %}
-</ul>
-{% endblock %} {% endcomment %}
