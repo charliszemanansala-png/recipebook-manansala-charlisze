@@ -3,25 +3,19 @@
 {% block body %}
 
 <h2>{{ recipe.name }}</h2>
-<p> Author:{{ recipe.author.name }}  </p> 
+<a href ="{% url 'ledger:add_image' recipe.pk %}"> Add Image</a>
 <ul>
 
-<h3>Ingredients: </h3>
+<h3>Images: </h3>
+{% for image in recipe.images.all %}
+     <img src="{{ image.image.url }}" alt="{{ image.description }}" width="300">
+{% endfor %}
+
 <ul>
     {% for ingredient in recipe.ingredients.all %}
         <li>{{ ingredient.ingredient.name }}: {{ ingredient.quantity }}</li>
     {% endfor %}
 </ul>
-
-<h3>Images: </h3>
-{% if recipe.images.all %}
-    {% for image in recipe.images.all %}
-        <img src="{{ image.image.url }}" alt="{{ image.description }}" width="300">
-    {% endfor %}
-{% else %}
-    <p>No images uploaded yet.</p>
-{% endif %}
-
 
 <a href="/recipes/list">Back to the Recipe List</a>
 {% endblock %}
