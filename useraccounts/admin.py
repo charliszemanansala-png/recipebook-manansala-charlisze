@@ -4,12 +4,17 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import Profile
 
+
 class ProfileInLine(admin.StackedInline):
-	model = Profile
-	can_delete = False
+    model = Profile
+    can_delete = False
+
 
 class UserAdmin(BaseUserAdmin):
-	inlines = [ProfileInLine, ]
+    inlines = [
+        ProfileInLine,
+    ]
+
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

@@ -5,33 +5,37 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ledger', '0002_profile'),
-        ('useraccounts', '0001_initial'),
+        ("ledger", "0002_profile"),
+        ("useraccounts", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Recipe_Ingredient',
-            new_name='RecipeIngredient',
+            old_name="Recipe_Ingredient",
+            new_name="RecipeIngredient",
         ),
         migrations.AddField(
-            model_name='recipe',
-            name='author',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='recipes', to='useraccounts.profile'),
+            model_name="recipe",
+            name="author",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="recipes",
+                to="useraccounts.profile",
+            ),
         ),
         migrations.AddField(
-            model_name='recipe',
-            name='created_on',
+            model_name="recipe",
+            name="created_on",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='recipe',
-            name='updated_on',
+            model_name="recipe",
+            name="updated_on",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.DeleteModel(
-            name='Profile',
+            name="Profile",
         ),
     ]

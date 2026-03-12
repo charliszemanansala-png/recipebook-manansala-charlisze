@@ -5,19 +5,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ledger', '0003_rename_recipe_ingredient_recipeingredient_and_more'),
+        ("ledger", "0003_rename_recipe_ingredient_recipeingredient_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RecipeImage',
+            name="RecipeImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to='recipe_images/')),
-                ('description', models.CharField(max_length=255)),
-                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='ledger.recipe')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("image", models.ImageField(upload_to="recipe_images/")),
+                ("description", models.CharField(max_length=255)),
+                (
+                    "recipe",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="images",
+                        to="ledger.recipe",
+                    ),
+                ),
             ],
         ),
     ]
